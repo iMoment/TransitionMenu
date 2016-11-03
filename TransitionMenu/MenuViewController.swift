@@ -12,8 +12,7 @@ class MenuViewController: UIViewController {
     
     let backgroundContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        view.alpha = 0.75
+        view.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1).withAlphaComponent(0.75)
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -21,8 +20,7 @@ class MenuViewController: UIViewController {
     
     let measurementView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-        view.alpha = 0.75
+        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -309,25 +307,3 @@ class MenuViewController: UIViewController {
         cancelButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
