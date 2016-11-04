@@ -12,7 +12,8 @@ class MenuViewController: UIViewController {
     
     let backgroundContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1).withAlphaComponent(0.75)
+        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.75)
+        view.isOpaque = false
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -146,15 +147,20 @@ class MenuViewController: UIViewController {
         return label
     }()
     
-    let cancelButton: UIButton = {
+    lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Cancel", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 24)
+        button.addTarget(self, action: #selector(handleDismissMenu), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
+    
+    func handleDismissMenu() {
+        dismiss(animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

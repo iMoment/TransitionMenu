@@ -31,16 +31,23 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    let menuButton: UIButton = {
+    lazy var menuButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Menu", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(handleTransition), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
     }()
+    
+    func handleTransition() {
+        let menuViewController = MenuViewController()
+        menuViewController.modalPresentationStyle = .overFullScreen
+        present(menuViewController, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
