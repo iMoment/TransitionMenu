@@ -10,6 +10,8 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
+    let transitionManager = TransitionManager()
+    
     let backgroundContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.75)
@@ -164,6 +166,7 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.transitioningDelegate = self.transitionManager
         
         view.addSubview(backgroundContainerView)
         
