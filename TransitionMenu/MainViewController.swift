@@ -10,6 +10,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    let transitionManager = MenuTransitionManager()
+    
     let mainImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "Plains")
@@ -45,6 +47,7 @@ class MainViewController: UIViewController {
     
     func handleTransition() {
         let menuViewController = MenuViewController()
+        menuViewController.transitioningDelegate = transitionManager
         menuViewController.modalPresentationStyle = .overFullScreen
         present(menuViewController, animated: true, completion: nil)
     }

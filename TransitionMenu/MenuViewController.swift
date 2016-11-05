@@ -10,7 +10,7 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
-    let transitionManager = MenuTransitionManager()
+//    let transitionManager = MenuTransitionManager()
 
     let measurementView: UIView = {
         let view = UIView()
@@ -158,7 +158,7 @@ class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.transitioningDelegate = self.transitionManager
+//        self.transitioningDelegate = self.transitionManager
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         view.isOpaque = false
         

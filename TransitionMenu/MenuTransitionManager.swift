@@ -8,9 +8,10 @@
 
 import UIKit
 
-class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
     
     fileprivate var presenting = false
+    fileprivate var interactive = false
     
     // MARK: UIViewControllerAnimatedTransitioning protocol methods
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -118,4 +119,29 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
         self.presenting = false
         return self
     }
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self.interactive ? self : nil
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return self.interactive ? self : nil
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
