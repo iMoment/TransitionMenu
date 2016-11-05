@@ -13,6 +13,7 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     fileprivate var presenting = false
     fileprivate var interactive = false
     fileprivate var enterPanGesture: UIScreenEdgePanGestureRecognizer!
+    fileprivate var exitPanGesture: UIPanGestureRecognizer!
     
     var sourceViewController: UIViewController! {
         didSet {
@@ -23,30 +24,59 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
     }
     
+    var menuViewController: UIViewController! {
+        didSet {
+            exitPanGesture = UIPanGestureRecognizer()
+            exitPanGesture.addTarget(self, action: #selector(handleOffStagePan))
+            menuViewController.view.addGestureRecognizer(exitPanGesture)
+        }
+    }
+    
     func handleOnStagePan(pan: UIPanGestureRecognizer) {
-        print("We are currently panning the screen.")
+        print("We are panning right to display the Menu Screen.")
         
         let translation = pan.translation(in: pan.view)
         let translationDistance = translation.x / pan.view!.bounds.width * 0.5
         
         switch (pan.state) {
+            case UIGestureRecognizerState.began:
+                interactive = true
+                // Transition to MenuViewController
+                let menuViewController = MenuViewController()
+                menuViewController.transitioningDelegate = self
+                menuViewController.modalPresentationStyle = .overFullScreen
+                sourceViewController.present(menuViewController, animated: true, completion: nil)
+                break
+                
+            case UIGestureRecognizerState.changed:
+                update(translationDistance)
+                break
+                
+            default:
+                interactive = false
+                (translationDistance > 0.2) ? finish() : cancel()
+        }
+    }
+    
+    func handleOffStagePan(pan: UIPanGestureRecognizer) {
+        print("We are trying to pan the screen off.")
+
+        let translation = pan.translation(in: pan.view)
+        let translationDistance = translation.x / pan.view!.bounds.width * -0.5
+        
+        switch (pan.state) {
+            case UIGestureRecognizerState.began:
+                interactive = true
+                menuViewController.dismiss(animated: true, completion: nil)
+                break
             
-        case UIGestureRecognizerState.began:
-            interactive = true
-            // Transition to MenuViewController
-            let menuViewController = MenuViewController()
-            menuViewController.transitioningDelegate = self
-            menuViewController.modalPresentationStyle = .overFullScreen
-            sourceViewController.present(menuViewController, animated: true, completion: nil)
-            break
+            case UIGestureRecognizerState.changed:
+                self.update(translationDistance)
+                break
             
-        case UIGestureRecognizerState.changed:
-            update(translationDistance)
-            break
-            
-        default:
-            interactive = false
-            (translationDistance > 0.2) ? finish() : cancel()
+            default:
+                interactive = false
+                (translationDistance > 0.2) ? finish() : cancel()
         }
     }
     
