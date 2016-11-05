@@ -157,8 +157,8 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.transitioningDelegate = self.transitionManager
         
+        self.transitioningDelegate = self.transitionManager
         view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
         view.isOpaque = false
         

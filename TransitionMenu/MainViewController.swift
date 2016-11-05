@@ -83,23 +83,3 @@ class MainViewController: UIViewController {
         menuButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
