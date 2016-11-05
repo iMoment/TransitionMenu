@@ -51,30 +51,35 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
         })
     }
     
+    func offStage(_ amount: CGFloat) -> CGAffineTransform {
+        return CGAffineTransform(translationX: amount, y: 0)
+    }
+    
     func offStageMenuController(_ menuViewController: MenuViewController) {
-        // 2D transitions for items in MenuViewController
-        let offstageLeft = CGAffineTransform(translationX: -150, y: 0)
-        let offstageRight = CGAffineTransform(translationX: 150, y: 0)
-        
         menuViewController.view.alpha = 0
         
-        menuViewController.textImageView.transform = offstageLeft
-        menuViewController.textLabel.transform = offstageLeft
+        // Stagger values for items
+        let topRowOffset: CGFloat = 300
+        let middleRowOffset: CGFloat = 150
+        let bottomRowOffset: CGFloat = 50
         
-        menuViewController.quoteImageView.transform = offstageLeft
-        menuViewController.quoteLabel.transform = offstageLeft
+        menuViewController.textImageView.transform = offStage(-topRowOffset)
+        menuViewController.textLabel.transform = offStage(-topRowOffset)
         
-        menuViewController.chatImageView.transform = offstageLeft
-        menuViewController.chatLabel.transform = offstageLeft
+        menuViewController.quoteImageView.transform = offStage(-middleRowOffset)
+        menuViewController.quoteLabel.transform = offStage(-middleRowOffset)
         
-        menuViewController.photoImageView.transform = offstageRight
-        menuViewController.photoLabel.transform = offstageRight
+        menuViewController.chatImageView.transform = offStage(-bottomRowOffset)
+        menuViewController.chatLabel.transform = offStage(-bottomRowOffset)
         
-        menuViewController.linkImageView.transform = offstageRight
-        menuViewController.linkLabel.transform = offstageRight
+        menuViewController.photoImageView.transform = offStage(topRowOffset)
+        menuViewController.photoLabel.transform = offStage(topRowOffset)
         
-        menuViewController.audioImageView.transform = offstageRight
-        menuViewController.audioLabel.transform = offstageRight
+        menuViewController.linkImageView.transform = offStage(middleRowOffset)
+        menuViewController.linkLabel.transform = offStage(middleRowOffset)
+        
+        menuViewController.audioImageView.transform = offStage(bottomRowOffset)
+        menuViewController.audioLabel.transform = offStage(bottomRowOffset)
     }
     
     func onStageMenuController(_ menuViewController: MenuViewController) {
