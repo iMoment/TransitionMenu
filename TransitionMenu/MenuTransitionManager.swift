@@ -16,37 +16,37 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     var sourceViewController: UIViewController! {
         didSet {
-            self.enterPanGesture = UIScreenEdgePanGestureRecognizer()
-            self.enterPanGesture.addTarget(self, action: #selector(handleOnStagePan))
-            self.enterPanGesture.edges = UIRectEdge.left
-            self.sourceViewController.view.addGestureRecognizer(self.enterPanGesture)
+            enterPanGesture = UIScreenEdgePanGestureRecognizer()
+            enterPanGesture.addTarget(self, action: #selector(handleOnStagePan))
+            enterPanGesture.edges = UIRectEdge.left
+            sourceViewController.view.addGestureRecognizer(enterPanGesture)
         }
     }
     
     func handleOnStagePan(pan: UIPanGestureRecognizer) {
-        // TODO: We will take care of this later
-        print("We triggered a pan gesture")
+        print("We are currently panning the screen.")
         
         let translation = pan.translation(in: pan.view)
         let translationDistance = translation.x / pan.view!.bounds.width * 0.5
         
         switch (pan.state) {
+            
         case UIGestureRecognizerState.began:
-            self.interactive = true
-            // TODO: transition to menu
+            interactive = true
+            // Transition to MenuViewController
             let menuViewController = MenuViewController()
             menuViewController.transitioningDelegate = self
             menuViewController.modalPresentationStyle = .overFullScreen
-            self.sourceViewController.present(menuViewController, animated: true, completion: nil)
+            sourceViewController.present(menuViewController, animated: true, completion: nil)
             break
             
         case UIGestureRecognizerState.changed:
-            self.update(translationDistance)
+            update(translationDistance)
             break
             
         default:
-            self.interactive = false
-            self.finish()
+            interactive = false
+            (translationDistance > 0.2) ? finish() : cancel()
         }
     }
     
@@ -57,35 +57,36 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
 
         let screens: (from: UIViewController, to: UIViewController) = (transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!, transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!)
         
-        let menuViewController = !self.presenting ? screens.from as! MenuViewController : screens.to as! MenuViewController
-        let bottomViewController = !self.presenting ? screens.to as UIViewController : screens.from as UIViewController
+        let menuViewController = !presenting ? screens.from as! MenuViewController : screens.to as! MenuViewController
+        let bottomViewController = !presenting ? screens.to as UIViewController : screens.from as UIViewController
         
         let menuView = menuViewController.view
         let bottomView = bottomViewController.view
         
         // Prepare the menu
-        if (self.presenting) {
+        if presenting {
             offStageMenuController(menuViewController)
         }
         
         container.addSubview(bottomView!)
         container.addSubview(menuView!)
         
-        let duration = self.transitionDuration(using: transitionContext)
+        let duration = transitionDuration(using: transitionContext)
         
         // Perform animation
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.8, options: .curveEaseOut, animations: {
             
-            if (self.presenting) {
-                self.onStageMenuController(menuViewController)
-            } else {
-                self.offStageMenuController(menuViewController)
-            }
+            self.presenting ? self.onStageMenuController(menuViewController) : self.offStageMenuController(menuViewController)
             
         }, completion: { finished in
             // Tell transitionContext object that we've finished animating
-            transitionContext.completeTransition(true)
-            UIApplication.shared.keyWindow?.addSubview(screens.to.view)
+            if transitionContext.transitionWasCancelled {
+                transitionContext.completeTransition(false)
+                UIApplication.shared.keyWindow?.addSubview(screens.from.view)
+            } else {
+                transitionContext.completeTransition(true)
+                UIApplication.shared.keyWindow?.addSubview(screens.to.view)
+            }
         })
     }
     
@@ -158,27 +159,10 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return self.interactive ? self : nil
+        return interactive ? self : nil
     }
     
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return self.interactive ? self : nil
+        return interactive ? self : nil
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
