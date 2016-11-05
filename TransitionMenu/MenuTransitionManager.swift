@@ -25,19 +25,9 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
         let menuView = menuViewController.view
         let bottomView = bottomViewController.view
         
-        // TODO: 2D transitions for items in MenuViewController
-        let offstageLeft = CGAffineTransform(translationX: -150, y: 0)
-        let offstageRight = CGAffineTransform(translationX: 150, y: 0)
-        
         // Prepare the menu
-        if (self.presenting){
-            menuView?.alpha = 0
-            
-            menuViewController.textImageView.transform = offstageLeft
-            menuViewController.textLabel.transform = offstageLeft
-            
-            menuViewController.photoImageView.transform = offstageRight
-            menuViewController.photoLabel.transform = offstageRight
+        if (self.presenting) {
+            offStageMenuController(menuViewController)
         }
         
         container.addSubview(bottomView!)
@@ -49,21 +39,9 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
         UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.8, options: .curveEaseOut, animations: {
             
             if (self.presenting) {
-                menuView?.alpha = 1
-                
-                menuViewController.textImageView.transform = CGAffineTransform.identity
-                menuViewController.textLabel.transform = CGAffineTransform.identity
-                
-                menuViewController.photoImageView.transform = CGAffineTransform.identity
-                menuViewController.photoLabel.transform = CGAffineTransform.identity
+                self.onStageMenuController(menuViewController)
             } else {
-                menuView?.alpha = 0
-                
-                menuViewController.textImageView.transform = offstageLeft
-                menuViewController.textLabel.transform = offstageLeft
-                
-                menuViewController.photoImageView.transform = offstageRight
-                menuViewController.photoLabel.transform = offstageRight
+                self.offStageMenuController(menuViewController)
             }
             
         }, completion: { finished in
@@ -71,6 +49,54 @@ class MenuTransitionManager: NSObject, UIViewControllerAnimatedTransitioning, UI
             transitionContext.completeTransition(true)
             UIApplication.shared.keyWindow?.addSubview(screens.to.view)
         })
+    }
+    
+    func offStageMenuController(_ menuViewController: MenuViewController) {
+        // 2D transitions for items in MenuViewController
+        let offstageLeft = CGAffineTransform(translationX: -150, y: 0)
+        let offstageRight = CGAffineTransform(translationX: 150, y: 0)
+        
+        menuViewController.view.alpha = 0
+        
+        menuViewController.textImageView.transform = offstageLeft
+        menuViewController.textLabel.transform = offstageLeft
+        
+        menuViewController.quoteImageView.transform = offstageLeft
+        menuViewController.quoteLabel.transform = offstageLeft
+        
+        menuViewController.chatImageView.transform = offstageLeft
+        menuViewController.chatLabel.transform = offstageLeft
+        
+        menuViewController.photoImageView.transform = offstageRight
+        menuViewController.photoLabel.transform = offstageRight
+        
+        menuViewController.linkImageView.transform = offstageRight
+        menuViewController.linkLabel.transform = offstageRight
+        
+        menuViewController.audioImageView.transform = offstageRight
+        menuViewController.audioLabel.transform = offstageRight
+    }
+    
+    func onStageMenuController(_ menuViewController: MenuViewController) {
+        menuViewController.view.alpha = 1
+        
+        menuViewController.textImageView.transform = CGAffineTransform.identity
+        menuViewController.textLabel.transform = CGAffineTransform.identity
+        
+        menuViewController.quoteImageView.transform = CGAffineTransform.identity
+        menuViewController.quoteLabel.transform = CGAffineTransform.identity
+        
+        menuViewController.chatImageView.transform = CGAffineTransform.identity
+        menuViewController.chatLabel.transform = CGAffineTransform.identity
+        
+        menuViewController.photoImageView.transform = CGAffineTransform.identity
+        menuViewController.photoLabel.transform = CGAffineTransform.identity
+        
+        menuViewController.linkImageView.transform = CGAffineTransform.identity
+        menuViewController.linkLabel.transform = CGAffineTransform.identity
+        
+        menuViewController.audioImageView.transform = CGAffineTransform.identity
+        menuViewController.audioLabel.transform = CGAffineTransform.identity
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
