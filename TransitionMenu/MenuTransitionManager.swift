@@ -12,6 +12,7 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     fileprivate var presenting = false
     fileprivate var interactive = false
+    
     fileprivate var enterPanGesture: UIScreenEdgePanGestureRecognizer!
     fileprivate var exitPanGesture: UIPanGestureRecognizer!
     
@@ -33,7 +34,6 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func handleOnStagePan(pan: UIPanGestureRecognizer) {
-        print("We are panning right to display the Menu Screen.")
         
         let translation = pan.translation(in: pan.view)
         let translationDistance = translation.x / pan.view!.bounds.width * 0.5
@@ -59,7 +59,6 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func handleOffStagePan(pan: UIPanGestureRecognizer) {
-        print("We are trying to pan the screen off.")
 
         let translation = pan.translation(in: pan.view)
         let translationDistance = translation.x / pan.view!.bounds.width * -0.5
@@ -76,7 +75,7 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             default:
                 interactive = false
-                (translationDistance > 0.2) ? finish() : cancel()
+                (translationDistance > 0.1) ? finish() : cancel()
         }
     }
     
