@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.transitionManager.sourceViewController = self
+        transitionManager.sourceViewController = self
         
         view.addSubview(mainImageView)
         view.addSubview(titleLabel)

@@ -23,9 +23,31 @@ class MenuTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
     }
     
-    func handleOnStagePan() {
+    func handleOnStagePan(pan: UIPanGestureRecognizer) {
         // TODO: We will take care of this later
         print("We triggered a pan gesture")
+        
+        let translation = pan.translation(in: pan.view)
+        let translationDistance = translation.x / pan.view!.bounds.width * 0.5
+        
+        switch (pan.state) {
+        case UIGestureRecognizerState.began:
+            self.interactive = true
+            // TODO: transition to menu
+            let menuViewController = MenuViewController()
+            menuViewController.transitioningDelegate = self
+            menuViewController.modalPresentationStyle = .overFullScreen
+            self.sourceViewController.present(menuViewController, animated: true, completion: nil)
+            break
+            
+        case UIGestureRecognizerState.changed:
+            self.update(translationDistance)
+            break
+            
+        default:
+            self.interactive = false
+            self.finish()
+        }
     }
     
     // MARK: UIViewControllerAnimatedTransitioning protocol methods
