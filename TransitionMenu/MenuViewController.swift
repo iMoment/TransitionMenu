@@ -9,18 +9,7 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-    
-    let transitionManager = TransitionManager()
-    
-    let backgroundContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).withAlphaComponent(0.75)
-        view.isOpaque = false
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        return view
-    }()
-    
+
     let measurementView: UIView = {
         let view = UIView()
         view.isHidden = true
@@ -166,33 +155,32 @@ class MenuViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.transitioningDelegate = self.transitionManager
         
-        view.addSubview(backgroundContainerView)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.75)
+        view.isOpaque = false
         
-        backgroundContainerView.addSubview(measurementView)
+        view.addSubview(measurementView)
         
-        backgroundContainerView.addSubview(textImageView)
-        backgroundContainerView.addSubview(textLabel)
+        view.addSubview(textImageView)
+        view.addSubview(textLabel)
         
-        backgroundContainerView.addSubview(photoImageView)
-        backgroundContainerView.addSubview(photoLabel)
+        view.addSubview(photoImageView)
+        view.addSubview(photoLabel)
         
-        backgroundContainerView.addSubview(quoteImageView)
-        backgroundContainerView.addSubview(quoteLabel)
+        view.addSubview(quoteImageView)
+        view.addSubview(quoteLabel)
         
-        backgroundContainerView.addSubview(linkImageView)
-        backgroundContainerView.addSubview(linkLabel)
+        view.addSubview(linkImageView)
+        view.addSubview(linkLabel)
         
-        backgroundContainerView.addSubview(chatImageView)
-        backgroundContainerView.addSubview(chatLabel)
+        view.addSubview(chatImageView)
+        view.addSubview(chatLabel)
         
-        backgroundContainerView.addSubview(audioImageView)
-        backgroundContainerView.addSubview(audioLabel)
+        view.addSubview(audioImageView)
+        view.addSubview(audioLabel)
         
-        backgroundContainerView.addSubview(cancelButton)
+        view.addSubview(cancelButton)
         
-        setupBackgroundContainerView()
         setupMeasurementView()
         
         setupTextImageView()
@@ -211,17 +199,10 @@ class MenuViewController: UIViewController {
     }
     
     // iOS constraints x, y, width, height
-    func setupBackgroundContainerView() {
-        backgroundContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        backgroundContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        backgroundContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        backgroundContainerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-    }
-    
     func setupMeasurementView() {
-        measurementView.centerXAnchor.constraint(equalTo: backgroundContainerView.centerXAnchor).isActive = true
-        measurementView.centerYAnchor.constraint(equalTo: backgroundContainerView.centerYAnchor).isActive = true
-        measurementView.widthAnchor.constraint(equalTo: backgroundContainerView.widthAnchor).isActive = true
+        measurementView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        measurementView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        measurementView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         measurementView.heightAnchor.constraint(equalToConstant: 10).isActive = true
     }
     
@@ -255,7 +236,7 @@ class MenuViewController: UIViewController {
     
     func setupQuoteImageView() {
         quoteImageView.bottomAnchor.constraint(equalTo: measurementView.topAnchor).isActive = true
-        quoteImageView.leftAnchor.constraint(equalTo: backgroundContainerView.leftAnchor, constant: 75).isActive = true
+        quoteImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 75).isActive = true
         quoteImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         quoteImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
@@ -269,7 +250,7 @@ class MenuViewController: UIViewController {
     
     func setupLinkImageView() {
         linkImageView.bottomAnchor.constraint(equalTo: measurementView.topAnchor).isActive = true
-        linkImageView.rightAnchor.constraint(equalTo: backgroundContainerView.rightAnchor, constant: -75).isActive = true
+        linkImageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -75).isActive = true
         linkImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         linkImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
@@ -310,8 +291,8 @@ class MenuViewController: UIViewController {
     }
     
     func setupCancelButton() {
-        cancelButton.bottomAnchor.constraint(equalTo: backgroundContainerView.bottomAnchor, constant: -20).isActive = true
-        cancelButton.centerXAnchor.constraint(equalTo: backgroundContainerView.centerXAnchor).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
+        cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         cancelButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         cancelButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }

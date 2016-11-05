@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9107A5911DCCA3BA009EA82F /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9107A5901DCCA3BA009EA82F /* TransitionManager.swift */; };
+		912CA1721DCD78AB00EEBB11 /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912CA1711DCD78AB00EEBB11 /* CustomTransition.swift */; };
 		914050D11DCA62B200466426 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914050D01DCA62B200466426 /* AppDelegate.swift */; };
 		914050D31DCA62B200466426 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914050D21DCA62B200466426 /* MainViewController.swift */; };
 		914050D61DCA62B200466426 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 914050D41DCA62B200466426 /* Main.storyboard */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9107A5901DCCA3BA009EA82F /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
+		912CA1711DCD78AB00EEBB11 /* CustomTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
 		914050CD1DCA62B200466426 /* TransitionMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TransitionMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		914050D01DCA62B200466426 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		914050D21DCA62B200466426 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -59,9 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				914050D01DCA62B200466426 /* AppDelegate.swift */,
+				912CA1711DCD78AB00EEBB11 /* CustomTransition.swift */,
 				914050D21DCA62B200466426 /* MainViewController.swift */,
 				919FEA861DCA718700CCE432 /* MenuViewController.swift */,
-				9107A5901DCCA3BA009EA82F /* TransitionManager.swift */,
 				914050D41DCA62B200466426 /* Main.storyboard */,
 				914050D71DCA62B200466426 /* Assets.xcassets */,
 				914050D91DCA62B200466426 /* LaunchScreen.storyboard */,
@@ -143,10 +143,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9107A5911DCCA3BA009EA82F /* TransitionManager.swift in Sources */,
 				914050D31DCA62B200466426 /* MainViewController.swift in Sources */,
 				914050D11DCA62B200466426 /* AppDelegate.swift in Sources */,
 				919FEA871DCA718700CCE432 /* MenuViewController.swift in Sources */,
+				912CA1721DCD78AB00EEBB11 /* CustomTransition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
